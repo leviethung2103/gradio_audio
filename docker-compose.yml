@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  jupyter:
+    container_name: first-app
+    # image: jupyter/scipy-notebook:2023-08-19
+    # image: custom-image:latest
+    build: .
+    ports:
+      - "10000:8888"
+      - "10001:5000" 
+      - "10002:5001"
+      - "10003:5002"
+    restart: always
+    volumes:
+      - ./:/home/jovyan/work
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      PYDEVD_DISABLE_FILE_VALIDATION: 1
+      GRANT_SUDO: "yes"
+    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
+    working_dir: /home/jovyan/work
